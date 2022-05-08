@@ -12,7 +12,6 @@ Puntaje = 100
 numero_usuario = 0
 Intentos = 0
 
-print(numero_random)
 
 #Se utiliza un bucle While que permita controlar el numero de intentos del usuario
 
