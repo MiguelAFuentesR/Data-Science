@@ -1,0 +1,435 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reto1-Busquedas</title>
+    <link type='text/css' rel="stylesheet" href='{% static "css/paginas.css" %}'>
+    <!-- Favicon web -->
+    <link rel="shortcut icon" href='{% static "img/icon.png" %}'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <style>
+        .seleccion {
+            border: 3px solid #58ACFA;
+            background-color: #2ECCFA;
+            color: white;
+            font-size: 17px;
+            width: 150px;
+            height: 35px;
+        }
+
+        input[type=submit] {
+            text-align: center;
+            background-color: #04AA6D;
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        input[type=number] {
+            text-align: center;
+            background-color: #c1d1cb;
+            border: none;
+            color: black;
+            padding: 16px 32px;
+            text-decoration: none;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .cmbColumn {
+            background: #2f3640;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            color: #f5f6fa;
+            border: none;
+            font-size: 14px;
+            height: 50px;
+            padding: 5px;
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="contariner">
+        <div id="menu">
+            <img id="logo" src='{% static "img/LogoplantillaUD.png" %}' alt="">
+            <ul>
+                <a href="../principal">
+                    <li>Dataframe</li>
+                </a>
+                <a href="../busquedas">
+                    <li>Busquedas</li>
+                </a>
+            </ul>
+        </div>
+
+        <!-- Info -->
+        <div id="texto">
+            <div>
+                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+
+            </div>
+
+            <div id="contariner">
+                <center>
+                    <h1>Sección de Búsquedas : </h1>
+                </center>
+            </div>
+
+
+
+            <div>
+                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+
+            <div>
+
+
+                <form action="/busquedas/" method="GET" name="formulario1">
+
+                    <ul style="list-style-type: circle;">
+                        <li> <b>Busqueda Tipo 1 :</b> Vacunas de un determinado laboratorio en un determinado territorio
+                        </li>
+                        <li> <b>Busqueda Tipo 2 :</b> Vacunas de un determinado uso , para un determinado codigo de
+                            territorio</li>
+                        <li> <b>Busqueda Tipo 3 :</b> Agrupar Por Valor especifico en una columna</li>
+                        <li> <b>Busqueda Tipo 4 :</b> Registro de Asignacion de Vacunas Mayores,Menores o Iguales a un dato ingresado</li>
+                        <li> <b>Busqueda Tipo 5 :</b> Agrupar Por Varios Tipos en una Columna Especifica</li>
+
+                    </ul>
+
+                    <div>
+                        <!-- Select Principal  -->
+                        <select class="cmbColumn" name="cosa" id="cosa" onchange="cambia()">
+                            <option disabled selected="">Tipo de Busqueda</option>
+
+                            <option value="1">Busqueda Tipo 1</option>
+                            <option value="2">Busqueda Tipo 2</option>
+                            <option value="3">Busqueda Tipo 3</option>
+                            <option value="4">Busqueda Tipo 4</option>
+                            <option value="5">Busqueda Tipo 5</option>
+                        </select>
+
+                        <!-- Selector columna 1 -->
+                        <select class="cmbColumn" name="opt" onchange="cambia2()">
+                            <option disabled selected="">Selector 1</option>
+                            <option value="-">-</option>
+                        </select>
+                        <!-- Selector columna 2 -->
+                        <select class="cmbColumn" name="opt2" id="opt2">
+                            <option disabled selected="">Selector 2</option>
+                            <option value="-">-</option>
+                        </select>
+                        <!-- Selector columna 3 -->
+                        <select disabled  class="cmbColumn" name="opt3" id="opt3">
+                            <option disabled selected="">Selector 3</option>
+                            <option value="-">-</option>
+                        </select>
+                        <input type="number" name="recuadro" placeholder="Ingrese Parametro">
+
+                    </div>
+                    <center>
+
+                        <input type="submit" value="Buscar" />
+                    </center>
+                </form>
+            </div>
+
+        </div>
+        <h3>El resultado de la busqueda es : </h3>
+        <!-- Selector columna 2 -->
+        <select class="cmbColumn" name="orden" id="orden" >
+            
+            <option value="1">Cantidad Menor</option>
+            <option value="2">Cantidad Mayor</option>
+            <option value="3">Territorio Ascendente</option>
+            <option value="4">Territorio Descendente</option>
+            <option value="5">Cod Territorio Ascendente</option>
+            <option value="6">Cod Territorio Descendente</option>
+            <option value="7">Laboratorio Ascendente</option>
+            <option value="8">Laboratorio Descendente</option>
+        </select>
+
+       <!--
+{% autoescape off %} 
+        {{ConsultadoLista}}{{ConsultadoLista1}}{{ConsultadoLista2}}{{ConsultadoRecuadro}}
+        {%endautoescape %}
+
+       -->
+        
+    </div>
+
+    <div id="textodataframe">
+        
+            {% autoescape off %} {{Dataframe}} {% endautoescape %}
+        
+     
+    </div>
+
+
+    <!-- Implementacion del Script Para los select  -->
+
+    <script type="text/javascript">
+        //1) Definir Las Variables Correspondintes
+
+        var opt_1 = JSON.parse('{{listaColumnas|safe}}') 
+        var opt_2 = JSON.parse('{{listaVacunas|safe}}')
+        var opt_3 = JSON.parse('{{listaTerritorios|safe}}')
+        var opt_4 = JSON.parse('{{listaUsos|safe}}')
+        var opt_5 = new Array ("NO APLICA",);
+        var opt_6 = JSON.parse('{{listaa_o|safe}}')
+        var opt_7 = JSON.parse('{{listaResolucion|safe}}')
+        var opt_8 = JSON.parse('{{listaCodigo|safe}}')
+        var opt_9 = JSON.parse('{{listaFecharesolucion|safe}}')
+        var opt_10 = JSON.parse('{{listaFechacorte|safe}}')
+        var opt_11 = new Array ("-", ">", "<", "=", "<=", ">=");
+        var opt_12 = new Array ("-", "nom_territorio", "laboratorio_vacuna", "uso_vacuna");
+
+        opt_1.unshift("-")
+        opt_2.unshift("-")
+        opt_3.unshift("-")
+        opt_4.unshift("-")
+        opt_6.unshift("-")
+        opt_7.unshift("-")
+        opt_8.unshift("-")
+
+        // 2) crear una funcion que permita ejecutar el cambio dinamico
+        function cambia() {
+            var cosa;
+            //Se toma el vamor de la "cosa seleccionada"
+            cosa = document.formulario1.cosa[document.formulario1.cosa.selectedIndex].value;
+            //se chequea si la "cosa" esta definida
+            if (cosa != 0) {
+
+                if (cosa == 1) {
+                    document.getElementById("opt3").setAttribute("disabled", "disabled");
+
+                    //Se realizo consulta Tipo1, Se rellan Selec1 con Laboratorios y Select2 con Territorios
+                    //selecionamos las listas Correctas
+                    mis_opts = eval("opt_2");
+                    mis_opts2 = eval("opt_3");
+
+                    //se calcula el numero de Elementos
+                    num_opts = mis_opts.length;
+                    num_opts2 = mis_opts2.length;
+
+                    //marco el numero de opt en el select
+                    document.formulario1.opt.length = num_opts;
+                    document.formulario1.opt2.length = num_opts2;
+
+                    //para cada opt del array, la pongo en el select
+                        //Para select 1 : 
+                    for (i = 0; i < num_opts; i++) {
+                    document.formulario1.opt.options[i].value = mis_opts[i];
+                    document.formulario1.opt.options[i].text = mis_opts[i];
+                    }
+                        //Para select 2 : 
+                    for (i = 0; i < num_opts2; i++) {
+                        document.formulario1.opt2.options[i].value = mis_opts2[i];
+                        document.formulario1.opt2.options[i].text = mis_opts2[i];
+                    }
+
+                } else if (cosa == 2) {
+                    
+                    document.getElementById("opt3").setAttribute("disabled", "disabled");
+                    //Se realizo consulta Tipo2, Se rellan Selec1 con usos y Select2 con Territorios
+                    //selecionamos las listas Correctas
+                    mis_opts = eval("opt_4");
+                    mis_opts2 = eval("opt_5");
+
+                    //se calcula el numero de Elementos
+                    num_opts = mis_opts.length;
+                    num_opts2 = mis_opts2.length;
+
+                    //marco el numero de opt en el select
+                    document.formulario1.opt.length = num_opts;
+                    document.formulario1.opt2.length = num_opts2;
+
+                    //para cada opt del array, la pongo en el select
+                        //Para select 1 : 
+                    for (i = 0; i < num_opts; i++) {
+                    document.formulario1.opt.options[i].value = mis_opts[i];
+                    document.formulario1.opt.options[i].text = mis_opts[i];
+                    }
+                        //Para select 2 : 
+                    for (i = 0; i < num_opts2; i++) {
+                        document.formulario1.opt2.options[i].value = mis_opts2[i];
+                        document.formulario1.opt2.options[i].text = mis_opts2[i];
+                    }
+
+                } else if (cosa == 3) {
+                    document.getElementById("opt3").setAttribute("disabled", "disabled");
+                    //Se realizo consulta Tipo3, Se rellan Selec1 con Columnas 
+                    //El select 2 se debe llenar con lo que se elija en el select
+                    //selecionamos las listas Correctas
+                    mis_opts = eval("opt_1");
+                    //se calcula el numero de Elementos
+                    num_opts = mis_opts.length;
+                    //marco el numero de opt en el select
+                    document.formulario1.opt.length = num_opts;
+                    //para cada opt del array, la pongo en el select
+                        //Para select 1 : 
+                    for (i = 0; i < num_opts; i++) {
+                    document.formulario1.opt.options[i].value = mis_opts[i];
+                    document.formulario1.opt.options[i].text = mis_opts[i];
+                    }
+                } else if (cosa == 4) {
+                    document.getElementById("opt3").setAttribute("disabled", "disabled");
+                    //Se realizo consulta Tipo4, Se rellan Selec1 con Laboratorios Select2 con  Comparadores
+                    //selecionamos las listas Correctas
+                    mis_opts = eval("opt_5");
+                    mis_opts2 = eval("opt_11");
+                    
+                    //se calcula el numero de Elementos
+                    num_opts = mis_opts.length;
+                    num_opts2 = mis_opts2.length;
+
+                    //marco el numero de opt en el select
+                    document.formulario1.opt.length = num_opts;
+                    document.formulario1.opt2.length = num_opts2;
+
+                    //para cada opt del array, la pongo en el select
+                        //Para select 1 : 
+                    for (i = 0; i < num_opts; i++) {
+                    document.formulario1.opt.options[i].value = mis_opts[i];
+                    document.formulario1.opt.options[i].text = mis_opts[i];
+                    }
+                        //Para select 2 : 
+                    for (i = 0; i < num_opts2; i++) {
+                        document.formulario1.opt2.options[i].value = mis_opts2[i];
+                        document.formulario1.opt2.options[i].text = mis_opts2[i];
+                    }
+                } else if (cosa == 5) {
+                                       
+                    document.getElementById("opt3").removeAttribute("disabled");
+                    
+
+                    //Se realizo consulta Tipo5, Se rellan Selec1 con Columnas 
+                    //El select 2 se debe llenar con lo que se elija en el select
+                    //selecionamos las listas Correctas
+                    mis_opts = eval("opt_12");
+                    //se calcula el numero de Elementos
+                    num_opts = mis_opts.length;
+                    //marco el numero de opt en el select
+                    document.formulario1.opt.length = num_opts;
+                    //para cada opt del array, la pongo en el select
+                        //Para select 1 : 
+                    for (i = 0; i < num_opts; i++) {
+                    document.formulario1.opt.options[i].value = mis_opts[i];
+                    document.formulario1.opt.options[i].text = mis_opts[i];
+                    }
+
+                }
+
+            } else {
+                //si no habia ninguna opt seleccionada, elimino las cosas del select
+                document.formulario1.opt.length = 1;
+                //ponemos un guion en la unica opt que he dejado
+                document.formulario1.opt.options[0].value = "-";
+                document.formulario1.opt.options[0].text = "-";
+
+                document.formulario1.opt2.length = 1;
+                //ponemos un guion en la unica opt que he dejado
+                document.formulario1.opt2.options[0].value = "-";
+                document.formulario1.opt2.options[0].text = "-";
+            }
+            //hacer un reset de las opts
+            document.formulario1.opt.options[0].selected = true;
+            document.formulario1.opt2.options[0].selected = true;
+        }
+
+        function cambia2() {
+            var cosa2;
+            //Se toma el valor de la "cosa seleccionada"
+            cosa2 = document.formulario1.opt[document.formulario1.opt.selectedIndex].value;
+            //se chequea si la "cosa" esta definida
+            if (cosa2 != 0) {
+                //Se toma el vamor de la "cosa seleccionada"
+                    
+                        if(cosa2=='num_resolucion'){
+                            mis_opts2 = eval("opt_7");
+                        }else if(cosa2=='a_o'){
+                            mis_opts2 = eval("opt_6");
+                        }else if(cosa2=='cod_territorio'){
+                            mis_opts2 = eval("opt_8");
+                        }else if(cosa2=='laboratorio_vacuna'){
+                            mis_opts2 = eval("opt_2");
+                            mis_opts3 = eval("opt_2");
+                        }else if(cosa2=='uso_vacuna'){
+                            mis_opts2 = eval("opt_4");
+                            mis_opts3 = eval("opt_4");
+                        }else if(cosa2=='nom_territorio'){
+                            mis_opts2 = eval("opt_3");
+                            mis_opts3 = eval("opt_3");
+                        }else if(cosa2=='fecha_corte'){
+                            mis_opts2 = eval("opt_5");
+                        }else if(cosa2=='fecha_resolucion'){
+                            mis_opts2 = eval("opt_5");
+                        }else if(cosa2=='cantidad'){
+                            mis_opts2 = eval("opt_5");
+                        }
+                    //Se realizo consulta Tipo3, Se rellan Selec1 con Columnas 
+                    //El select 2 se debe llenar con lo que se elija en el select1         
+                    num_opts2 = mis_opts2.length;
+                    num_opts3 = mis_opts3.length;
+                    //marco el numero de opt en el select
+
+                    document.formulario1.opt2.length = num_opts2;
+                    document.formulario1.opt3.length = num_opts3;
+
+                        //Para select 2 : 
+                        for (i = 0; i < num_opts2; i++) {
+                            document.formulario1.opt2.options[i].value = mis_opts2[i];
+                            document.formulario1.opt2.options[i].text = mis_opts2[i];
+                        }
+                        //Para select 3 : 
+                        for (i = 0; i < num_opts2; i++) {
+                            document.formulario1.opt3.options[i].value = mis_opts3[i];
+                            document.formulario1.opt3.options[i].text = mis_opts3[i];
+                        }
+
+            } else {
+                //si no habia ninguna opt seleccionada, elimino las cosas del select
+                document.formulario1.opt2.length = 1;
+                //ponemos un guion en la unica opt que he dejado
+                document.formulario1.opt2.options[0].value = "-";
+                }
+            //hacer un reset de las opts
+            document.formulario1.opt2.options[0].selected = true;
+
+        }
+        
+    </script>
+    
+    <script>
+        $('#orden').change(function() { 
+            console.log("click");
+            a=$('#orden').val();
+            $.ajax({
+                method: 'POST',
+                url: '/busquedas/',
+                data: {
+                    'Orden': a,
+                },
+                dataType: "json",
+                success: function(response) {
+                   // alert("Busqueda Exitosa")
+                    $("#textodataframe").html(response.resultado);
+                }
+            }); 
+        });
+    </script>
+
+</body>
+
+</html>

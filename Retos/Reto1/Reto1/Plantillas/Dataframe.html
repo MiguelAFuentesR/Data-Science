@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reto1-Dataframe</title>
+    <link type='text/css' rel="stylesheet" href='{% static "css/paginas.css" %}'>
+    <!-- Favicon web -->
+    <link rel="shortcut icon" href='{% static "img/icon.png" %}'>
+</head>
+<body>
+
+    <div id="contariner">
+        <div id="menu">
+            <img id="logo" src='{% static "img/LogoplantillaUD.png" %}' alt="">
+            <ul>
+                <a href="../principal">
+                    <li>Dataframe</li>
+                </a>
+                <a href="../busquedas">
+                    <li>Busquedas</li>
+                </a>
+            </ul>
+        </div>
+        <!-- Info -->
+        <div id="texto">
+
+                       
+            <div>
+                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+            </div> 
+            
+
+            <div id="contariner">
+                <center>
+                <img id="logo" src='{% static "img/LogoUD.png" %}' align="center" width="200px" height="200px" >
+                <br></br>
+                <a title="GitHub" href="https://github.com/MiguelAFuentesR/Ciencia_de_Datos"><img src="https://img.shields.io/badge/MiguelAFuentesR-github-br?style=flat-square" alt="GitHub" /></a>
+                <a title="Licencia" href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-green" alt="Licencia" /></a>
+
+                </center>
+            </div>
+               
+
+            <div>
+                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+            <div>
+
+                <center><h1> Reto 1 - Introducción a la Ciencia de Datos</h1><h3>Miguel Angel Fuentes Ramirez - COD. 20182005007</h3></center>
+
+                <p>La presente aplicación web desarrollada en Django realiza:
+                    <ul>
+                        <li>
+                            Se conecta a Datos Abiertos de Colombia para acceder al conjunto de datos de Vacunación de Covid-19 ,
+                            los convierte en dataframe usando sodapy.
+                        </li>
+                        <li>
+                            Permite Visualizar el dataframe.
+                        </li>
+                        <li>
+                            Permite hacer consultas prediseñadas con parámetros definidos por el usuario.
+                        </li>
+                    </ul>
+                </p>
+
+            </div>
+        </div>
+        <h3>El Dataframe Cargado es : </h3>
+        <div id="texto">
+            {% autoescape off %} {{Dataframe}} {% endautoescape %}
+
+        </div>
+        
+</body>
+</html>
