@@ -18,7 +18,7 @@ def saludo(request):
 
 def Generar_Dataframe():
     client = Socrata("www.datos.gov.co", None)
-    results = client.get("sdvb-4x4j", limit=5000)
+    results = client.get("sdvb-4x4j", limit=5300)
     # Convert to pandas DataFrame
     df = pd.DataFrame.from_records(results)
     df["uso_vacuna"] = df["uso_vacuna"].apply(
@@ -129,7 +129,7 @@ def busqueda(request):
 
     # ---------- Obtencion Dataframe --------------
     df = Generar_Dataframe()
-    s = Estilo_Dataframe(df)
+    #s = Estilo_Dataframe(df)
 
     # ---------- Configracion Parametros Busquedas --------------
 
@@ -161,12 +161,14 @@ def busqueda(request):
     consultaLista1 = request.GET.get("opt")
     consultaLista2 = request.GET.get("opt2")
     consultaLista3 = request.GET.get("opt3")
+    global df_consultado 
+    
     
     # ---------- Busquedas --------------
     if consultaLista != '0': 
         print(type(consultaLista),consultaLista)
-        global df_consultado 
-        if (consultaLista=='1'):
+        
+        if (consultaLista=='1'):      
             print('Se Realizo busqueda tipo 1')
         #df[(df['laboratorio_vacuna']==Desplegable1) & (df['nom_territorio']==Desplegable2)]
             df_consultado = df[(df['laboratorio_vacuna'] == consultaLista1) & (df['nom_territorio'] == consultaLista2)]
@@ -190,6 +192,7 @@ def busqueda(request):
                 df_consultado = df[df['uso_vacuna']==consultaLista2]
    
         elif (consultaLista=='4'):
+            
             # Se Realizo busqueda tipo 4
             if consultaLista2=='>':
                 df_consultado =df[pd.to_numeric(df['cantidad'])>int(consultaRecuadro)]
@@ -204,8 +207,12 @@ def busqueda(request):
        
         elif (consultaLista=='5'):
              # Se Realizo busqueda tipo 5
-                df_consultado = df[(df[consultaLista1]==consultaLista2) | (df[consultaLista1]==consultaLista3)]
-       
+            df_consultado = df[(df[consultaLista1]==consultaLista2) | (df[consultaLista1]==consultaLista3)]
+        else : 
+            df_consultado=df  
+    else: 
+        df_consultado=df  
+    #df_consultado=df  
        #-----------Opciones de Organización ------------------------ 
     s = Estilo_Dataframe(df_consultado)
     
