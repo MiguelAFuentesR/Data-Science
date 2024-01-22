@@ -1,4 +1,18 @@
-# Ciencia_de_Datos
+# Data Science 
+
+[English Version]
+This repository contains the developments proposed for the challenges and workshops belonging to the subject data science.
+
+The first challenge consists of the development of a web page able to connect with the api of open data of Colombia, this application allows to observe a set of data on vaccination against covid19 updated in real time, allows advanced searches and perform analysis of the information, the technologies used for the development of this project were: Python, DJango, JavaScript, Html5, Css, Ajax.
+
+The second challenge consists of a natural language processing of the comments of the social network Twitter, this to make an analysis of the emotions of the comments of the users.
+
+The final challenge consists of the implementation of a real-time recognition system of 43 traffic signals using convolutional neural networks, the languages used for the development of this project were: Javascript, Python.
+
+Repository Elaborated by: https://www.linkedin.com/in/miguelafuentesr/
+
+
+[Spanish Version]
 
  Este repositorio contiene los desarrollos propuestos para los retos y talleres pertenecientes a la asignatura ciencia de datos.
  
